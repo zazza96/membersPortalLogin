@@ -1,6 +1,3 @@
-# Bookstore-JD
-
-
 # Running the project on localhost
 To compile the code run 'npm i' to install dependencies, then run 'npm run build' to compile the code. 
 
