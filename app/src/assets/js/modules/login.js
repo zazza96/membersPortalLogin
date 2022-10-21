@@ -1,5 +1,3 @@
-import errorMsg from './errorMsg';
-
 export default () => { 
     //console.log(userdetails());
 
@@ -15,37 +13,34 @@ export default () => {
     ];
 
     document.querySelector('.login_btn').addEventListener('click',_=>{
-        console.log('login btn clicked');
-
+        let correct = false;
         for(var i = 0; i < logindetails.length; i++) {
-            // check is user input matches username and password of a current index of the objPeople array
-            if(phone_txtBox.value == "" && usrName_txtBox.value == logindetails[i].username && pword_txtBox.value == logindetails[i].password) {
-                    alert(logindetails[i].username + " is logged in!!!");
+            // check fields aren't empty
+            if(phone_txtBox.value == "" &&  usrName_txtBox.value == "" && pword_txtBox.value == "") {
+                alert('Fields are empty');
 
+                return;
+            }
+            // check if username and password are inserted without phone number in
+            if(phone_txtBox.value == "" && usrName_txtBox.value == logindetails[i].username && pword_txtBox.value == logindetails[i].password) {
+                    alert(logindetails[i].username + " is logged in!");
+                    correct = true; //set boolean to true
                     return;
                     // stop the function if this is found to be true
-            } else if(phone_txtBox.value == "" &&  usrName_txtBox.value == "" && pword_txtBox.value == "") {
-                pword_txtBox.insertAdjacentHTML('afterend', errorMsg('Fields are empty'));
-                //alert('Fields are empty');
-
-                return;
-            }
+            } 
+            //check when user uses name and phone number
             else if (phone_txtBox.value == logindetails[i].phoneNumber && pword_txtBox.value == logindetails[i].password){
-                alert(logindetails.username + " is logged in!!!");
+                alert(logindetails[i].username + " is logged in!!!");
+                correct = true; //set boolean to true
                 return;
             } 
-            else if (phone_txtBox.value == logindetails[i].phoneNumber || pword_txtBox.value == logindetails[i].password) {
-                pword_txtBox.insertAdjacentHTML('afterend', errorMsg('Phone Number or Password incorrect'));
-                //alert('wrong username or password');
-                return;
-            }
-            else if (usrName_txtBox.value == logindetails[i].username || pword_txtBox.value == logindetails[i].password) {
-                pword_txtBox.insertAdjacentHTML('afterend', errorMsg('Name or Password incorrect'));
-                //alert('wrong username or password');
-                return;
-            }
-
         }
+        //if the password isn't correct
+        if (!correct) {
+            //alert the user there's an issue
+            alert('incorrect phone, username or password');
+        }
+
 
     });
 }
